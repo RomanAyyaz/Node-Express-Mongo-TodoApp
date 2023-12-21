@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header.ejs') %>
+    <title>Edit Note</title>
+
+    <body>
+        <div class="container">
+            <h2>Edit Note</h2>
+            <form action="/user/edit-note/<%= note._id %>" method="post">
+                <div class="mb-3">
+                    <label for="updatedNote" class="form-label">Updated Note:</label>
+                    <input type="text" name="updatedNote" class="form-control" id="updatedNote" value="<%= note.note %>"
+                        required>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Note</button>
+            </form>
+        </div>
+        <!-- Script partial -->
+        <%- include("partials/script.ejs") %>
+    </body>
+
+</html>

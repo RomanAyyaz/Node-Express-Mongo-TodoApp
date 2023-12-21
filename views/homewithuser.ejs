@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header.ejs') %>
+    <title>Home</title>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <a class="btn btn-primary me-2" href="/user/logout">Logout</a>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <!-- Display user information -->
+            <h1>Welcome <%= user.fullname %>
+            </h1>
+
+            <!-- Form to add a new note -->
+            <form action="/user/add-note" method="post">
+                <div class="mb-3">
+                    <label for="floatingInput" class="form-label">Add Note</label>
+                    <input type="text" name="note" class="form-control" id="floatingInput">
+                </div>
+                <button type="submit" class="btn btn-success">Add</button>
+            </form>
+            <!-- Display existing notes -->
+            <h2>Your Notes:</h2>
+            <% if (notes && notes.length> 0) { %>
+                <ul>
+                    <% notes.forEach(note=> { %>
+                        <li>
+                            <p>
+                                <%= note.note %>
+                            </p>
+                            <form action="/user/edit-note/<%= note._id %>" method="get" style="display: inline;">
+                                <button type="submit" class="btn btn-info btn-sm">Edit</button>
+                            </form>
+                            <form action="/user/delete-note/<%= note._id %>" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </li>
+                        <% }); %>
+                </ul>
+                <% } else { %>
+                    <p>No notes available.</p>
+                    <% } %>
+
+
+
+                        <!-- Script partial (unchanged) -->
+                        <%- include("partials/script.ejs") %>
+    </body>
+
+</html>
